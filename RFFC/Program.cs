@@ -1,10 +1,12 @@
 
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using RFFC.Data;
 using RFFC.Interfaces;
 using RFFC.Mapping;
 using RFFC.Middleware;
 using RFFC.Services;
-using RFFC.Data;
-using Microsoft.EntityFrameworkCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,11 @@ builder.Services.AddDbContext<DBContext>(options =>
 
 builder.Services.AddAutoMapper(typeof(AutoMapping));
 builder.Services.AddScoped<IRFCService, RFCService>();
+builder.Services.AddScoped<ILoginService, LoginService>();
+builder.Services.AddScoped<ISignupService, SignupService>();
+builder.Services.AddScoped<IPasswordHasher<RFFC.Entities.User>, PasswordHasher<RFFC.Entities.User>>();
+builder.Services.AddScoped<IJwtService, JwtService>();
+
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
