@@ -12,8 +12,8 @@ using RFFC.Data;
 namespace RFFC.Migrations
 {
     [DbContext(typeof(DBContext))]
-    [Migration("20250923163125_RF")]
-    partial class RF
+    [Migration("20251020080145_auth")]
+    partial class auth
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,42 @@ namespace RFFC.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+
+            modelBuilder.Entity("RFFC.Entities.Auth", b =>
+                {
+                    b.Property<Guid>("RFCId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Email");
+
+                    b.Property<string>("Message")
+                        .HasColumnType("text")
+                        .HasColumnName("Message");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("PasswordHash");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Username");
+
+                    b.HasKey("RFCId");
+
+                    b.ToTable("Auth");
+                });
 
             modelBuilder.Entity("RFFC.Entities.MessageRequest", b =>
                 {

@@ -4,6 +4,6 @@ namespace RFFC.Interfaces
 {
     public interface IJwtService
     {
-        string GenerateToken(User user);
+        string GenerateToken(Auth auth);
     }
 }
